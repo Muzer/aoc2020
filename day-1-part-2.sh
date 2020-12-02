@@ -1,6 +1,6 @@
 #!/bin/bash
 
-rm -f /tmp/aoc1
+echo -n > /tmp/aoc1
 
 while read -r line; do
   echo "$line" >> /tmp/aoc1
