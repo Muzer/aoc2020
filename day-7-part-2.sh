@@ -40,19 +40,19 @@ dfs()
 
   local bag_count
 
+  local local_total=0
+
   if [ -v contains["$cur_bag"] ]; then
     for bag_count in ${contains["$cur_bag"]}; do
       local count=${bag_count%:*}
+      local_total=$(( local_total + count )) # add number of contained bags
       local bag=${bag_count#*:}
       local i
-      for (( i=0; i<count; ++i )); do
-        let total++
-        dfs "$bag"
-      done
+      result=$(dfs "$bag")
+      local_total=$(( local_total + result * count )) # add indirect bags
     done
   fi
+  echo $local_total
 }
 
 dfs "shiny_gold"
-
-echo "$total"
